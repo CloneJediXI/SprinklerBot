@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>Sprinkler Bot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#ringZone').click(function(){
+                
+                var min = parseFloat($('#secondsInput').val());
+                var sec = parseInt(min*60);
+                var zoneVal = $('#zoneDrp').val();
+                //$(this).text(""+zoneVal+" "+sec);
+                var ajaxurl = 'sprinkler.php';
+                data =  {zone: zoneVal, dur: sec};
+                $.post(ajaxurl, data, function (response) {
+                    //$('#map').attr("src", response);
+                    alert("Success!");
+                });
+            });
+            $('#zoneDrp').change(function(){
+                var number = parseInt($(this).val()) + 1;
+                $('#map').attr("src", "House"+number+".jpg");
+            });
+        });
+    </script>
+    <style>
+        @media only screen and (max-width: 1000px) {
+            .largeText {
+                font-size: 5vw;
+            }
+        }
+    </style>
+
+    <div class="p-lg-5 p-2">
+        <div class="row text-center">
+            <div class="col-lg-3 col-1"></div>
+            <div class="col-lg-6 col-10">
+                <h1>Welcome to the Sprinkler Bot!</h1>
+            </div>
+        </div>
+        <div class="row largeText text-center">
+            <div class="col-1"></div>
+            <div class="col-lg-4 col-10">
+                <img src="House1.jpg" id="map" class="w-100" />
+            </div>
+            
+
+            <div class="col-4 col-lg-2">
+                <label for="zone" class="w-100">Select Zone</label>
+                <select name="zone" id="zoneDrp" class="w-50 p-2">
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2">3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                    <option value="17">13</option>
+                    <option value="18">14</option>
+                </select>
+            </div>
+            <div class="col-4 col-lg-2">
+                <label for="seconds">Duration:</label>
+                <input type="number" name="seconds" id="secondsInput" placeholder="Minutes" class="w-100"/>
+            </div>
+            <div class="col-4 col-lg-2">
+                <button id="ringZone" class="p-2">Turn on</button>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
